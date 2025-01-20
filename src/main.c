@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:27:01 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/20 09:10:50 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/20 09:20:09 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int ac, char **av)
 	game.map = ft_split(map, '\n');
 	free (map);
 	init_map(game.mlx, game.window, game.map);
-	mlx_hook(game.window, 2, 1L<<0, handle_keypress, &game);
+	mlx_hook(game.window, 2, 1L, handle_keypress, &game);
 	mlx_hook(game.window, 17, 0, close_window, &game);
 	mlx_loop(game.mlx);
 	if (!av)
