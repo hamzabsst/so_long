@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:38:54 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/20 08:38:50 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/20 11:01:46 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,9 @@ int	check_map(char *map)
 	if (is_surronded_by_walls(lines))
 		return (free_split(lines), 1);
 	if (count_p != 1 || count_e != 1 || count_c < 1)
-	{
-		write(2, "map is not valid\n", 17);
+		return (free_split(lines), write(2, "map is not valid\n", 17));
+	if (is_valid_path(lines))
 		return (free_split(lines), 1);
-	}
 	free_split(lines);
 	return (0);
 }

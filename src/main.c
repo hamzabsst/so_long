@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:27:01 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/20 09:20:09 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/20 10:48:05 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main(int ac, char **av)
 	map = read_map("maps/test.ber");
 	if (!map)
 		return (write(2, "Error: failed to read map\n", 26));
-	if (check_map(map) == 1)
+	if (check_map(map))
 		return (free(map), 1);
 	game.mlx = mlx_init();
 	game.window = mlx_new_window(game.mlx, 800, 600, "so_long");
