@@ -6,38 +6,11 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:38:54 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/18 20:47:44 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/20 08:04:55 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
-
-char	*read_map(const char *map)
-{
-	int		fd;
-	ssize_t	bytes_read;
-	char		*buffer;
-
-	buffer = malloc(1001);
-	if (!buffer)
-		return (NULL);
-	fd = open(map, O_RDONLY);
-	if (fd < 0)
-	{
-		free(buffer);
-		return (NULL);
-	}
-	bytes_read = read(fd, buffer, 1000);
-	if (bytes_read <= 0)
-	{
-		free(buffer);
-		close(fd);
-		return (NULL);
-	}
-	buffer[bytes_read] = '\0';
-	close(fd);
-	return (buffer);
-}
 
 static int	has_valid_characters(char **lines, int *count_p, int *count_c, int *count_e)
 {
@@ -60,7 +33,7 @@ static int	has_valid_characters(char **lines, int *count_p, int *count_c, int *c
 			else if (lines[i][j] == 'E')
 				(*count_e)++;
 			else if (lines[i][j] != '1' && lines[i][j] != '0')
-				return (1);
+				return (write(2, "map has invalid characters\n", 27));
 			j++;
 		}
 		i++;
@@ -80,7 +53,7 @@ static int	is_rectangular(char **lines)
 	while (lines[i])
 	{
 		if (ft_strlen(lines[i]) != size)
-			return (1);
+			return (write(2, "map is not rectangular\n", 23));
 		i++;
 	}
 	return (0);
@@ -102,14 +75,14 @@ static int is_surronded_by_walls(char **lines)
 	while (i < width)
 	{
 		if (lines[0][i] != '1' || lines[height - 1][i] != '1')
-			return (1);
+			return (write(2, "map is not surronded by walls\n", 30));
 		i++;
 	}
 	i = 0;
 	while (i < height)
 	{
 		if (lines[i][0] != '1' || lines[i][width - 1] != '1')
-			return (1);
+			return (write(2, "map is not surronded by walls\n", 30));
 		i++;
 	}
 	return (0);
@@ -126,20 +99,11 @@ int	check_map(char *map)
 	if (!lines || !lines[0])
 		return (1);
 	if (is_rectangular(lines))
-	{
-		write(2, "map is not rectangular\n", 23);
 		return (free_lines(lines), 1);
-	}
 	if (has_valid_characters(lines, &count_p, &count_c, &count_e))
-	{
-		write(2, "map has invalid characters\n", 27);
 		return (free_lines(lines), 1);
-	}
 	if (is_surronded_by_walls(lines))
-	{
-		write(2, "map is not surronded by walls\n", 30);
 		return (free_lines(lines), 1);
-	}
 	if (count_p != 1 || count_e != 1 || count_c < 1)
 	{
 		write(2, "map is not valid\n", 17);
@@ -153,7 +117,10 @@ void	free_lines(char **lines)
 	int	i = 0;
 
 	while (lines[i])
-		free(lines[i++]);
+	{
+		free(lines[i]);
+		i++;
+	}
 	free(lines);
 }
 

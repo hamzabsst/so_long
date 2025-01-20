@@ -13,6 +13,7 @@ NAME = so_long
 
 SRCS =	src/main.c \
 		src/check_errors.c \
+		src/map_parsing.c \
 
 OBJS = $(SRCS:.c=.o)
 
