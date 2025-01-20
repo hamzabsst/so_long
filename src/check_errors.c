@@ -6,20 +6,20 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:38:54 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/20 08:04:55 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/20 08:38:50 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
-static int	has_valid_characters(char **lines, int *count_p, int *count_c, int *count_e)
+static int	has_valid_characters(char **lines, int *p, int *c, int *e)
 {
 	int	i;
 	int	j;
 
-	*count_p = 0;
-	*count_c = 0;
-	*count_e = 0;
+	*p = 0;
+	*c = 0;
+	*e = 0;
 	i = 0;
 	while (lines[i])
 	{
@@ -27,11 +27,11 @@ static int	has_valid_characters(char **lines, int *count_p, int *count_c, int *c
 		while (lines[i][j])
 		{
 			if (lines[i][j] == 'P')
-				(*count_p)++;
+				(*p)++;
 			else if (lines[i][j] == 'C')
-				(*count_c)++;
+				(*c)++;
 			else if (lines[i][j] == 'E')
-				(*count_e)++;
+				(*e)++;
 			else if (lines[i][j] != '1' && lines[i][j] != '0')
 				return (write(2, "map has invalid characters\n", 27));
 			j++;
@@ -59,7 +59,7 @@ static int	is_rectangular(char **lines)
 	return (0);
 }
 
-static int is_surronded_by_walls(char **lines)
+static int	is_surronded_by_walls(char **lines)
 {
 	int		i;
 	int		width;
@@ -91,31 +91,36 @@ static int is_surronded_by_walls(char **lines)
 int	check_map(char *map)
 {
 	char	**lines;
-	int		count_p = 0;
-	int		count_c = 0;
-	int		count_e = 0;
+	int		count_p;
+	int		count_c;
+	int		count_e;
 
+	count_p = 0;
+	count_c = 0;
+	count_e = 0;
 	lines = ft_split(map, '\n');
 	if (!lines || !lines[0])
 		return (1);
 	if (is_rectangular(lines))
-		return (free_lines(lines), 1);
+		return (free_split(lines), 1);
 	if (has_valid_characters(lines, &count_p, &count_c, &count_e))
-		return (free_lines(lines), 1);
+		return (free_split(lines), 1);
 	if (is_surronded_by_walls(lines))
-		return (free_lines(lines), 1);
+		return (free_split(lines), 1);
 	if (count_p != 1 || count_e != 1 || count_c < 1)
 	{
 		write(2, "map is not valid\n", 17);
-		return (free_lines(lines), 1);
+		return (free_split(lines), 1);
 	}
-	free_lines(lines);
+	free_split(lines);
 	return (0);
 }
-void	free_lines(char **lines)
-{
-	int	i = 0;
 
+void	free_split(char **lines)
+{
+	int	i;
+
+	i = 0;
 	while (lines[i])
 	{
 		free(lines[i]);
@@ -123,4 +128,3 @@ void	free_lines(char **lines)
 	}
 	free(lines);
 }
-
