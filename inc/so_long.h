@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:26:58 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/21 09:33:33 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/21 14:45:12 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,16 @@ typedef struct s_game
 	void	*mlx;
 	void	*window;
 	char	**map;
+	int		height;
+	int		width;
 	int		player_x;
 	int		player_y;
 	t_txr	txr;
 	int		collectibles;
 	int		collected;
-	int		moves;
 	int		won;
+	void	*black_bg;
+	int		moves;
 }	t_game;
 
 typedef struct s_point
@@ -58,6 +61,7 @@ typedef struct s_point
 }	t_point;
 
 //map
+void	init_window(t_game *game);
 char	*read_map(const char *map);
 int		check_map(char *map);
 int		is_valid_path(char **map);
@@ -71,4 +75,6 @@ void	init_collectibles(t_game *game);
 //cleanup
 void	free_split(char **lines);
 int		close_window(t_game *game);
+// In your header file
+void    display_moves(t_game *game);
 #endif

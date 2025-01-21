@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 08:13:44 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/21 08:49:29 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/21 14:51:35 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,17 @@ void	init_collectibles(t_game *game)
 		}
 		y++;
 	}
+}
+
+void display_moves(t_game *game)
+{
+	char	*moves;
+	char	*tmp;
+
+	tmp = ft_itoa(game->moves);
+	moves = ft_strjoin("Moves: ", tmp);
+	free(tmp);
+	mlx_put_image_to_window(game->mlx, game->window, game->black_bg, 1, 1);
+	mlx_string_put(game->mlx, game->window, 10, 20, 0xFFFFFF, moves);
+	free(moves);
 }

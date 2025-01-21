@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 08:16:57 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/21 09:01:37 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/21 14:56:21 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,20 +97,17 @@ void	render_map(void *mlx, void *w, char **map, t_txr *txr)
 static int	status(t_game *game, int x, int y)
 {
 	if (game->map[y][x] == 'C')
-	{
 		game->collected++;
-		ft_printf("\nCollected: %d/%d\n", game->collected, game->collectibles);
-	}
 	else if (game->map[y][x] == 'E')
 	{
 		if (game->collected == game->collectibles)
 		{
-			ft_printf("\nCongratulations! You won!\n");
+			ft_printf("Congratulations! You won!\n");
 			close_window(game);
 		}
 		else
 		{
-			ft_printf("\nCollect all items first! (%d/%d)\n",
+			ft_printf("Collect all items first! (%d/%d)\n",
 				game->collected, game->collectibles);
 			return (0);
 		}
@@ -120,7 +117,6 @@ static int	status(t_game *game, int x, int y)
 	game->player_x = x;
 	game->player_y = y;
 	game->moves++;
-	ft_printf("\rNumber of movements are: %d", game->moves);
 	return (0);
 }
 
@@ -145,6 +141,7 @@ int	handle_keypress(int keycode, t_game *game)
 	{
 		status(game, new_x, new_y);
 		render_map(game->mlx, game->window, game->map, &game->txr);
+		display_moves(game);
 	}
 	return (0);
 }

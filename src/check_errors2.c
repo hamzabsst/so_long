@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 10:50:07 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/20 14:36:53 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:02:37 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,6 @@ int	is_valid_path(char **map)
 	result = check_path(map_copy);
 	free_split(map_copy);
 	if (result)
-		return (write(2, "Error: No valid path exists\n", 27));
+		return (write(2, "Error: No valid path exists\n", 28));
 	return (0);
 }
