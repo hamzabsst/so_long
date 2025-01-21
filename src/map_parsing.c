@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 08:16:57 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/21 08:00:02 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/21 08:40:03 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,34 @@ void	render_map(void *mlx, void *w, char **map, t_txr *txr)
 	}
 }
 
+static int	status(t_game *game, int x, int y)
+{
+	if (game->map[y][x] == 'C')
+		{
+			game->collected++;
+			ft_printf("Collected: %d/%d\n", game->collected, game->collectibles);
+		}
+		else if (game->map[y][x] == 'E')
+		{
+			if (game->collected == game->collectibles)
+			{
+				ft_printf("Congratulations! You won!\n");
+				close_window(game);
+			}
+			else
+			{
+				ft_printf("Collect all items first! (%d/%d)\n",
+					game->collected, game->collectibles);
+				return (0);
+			}
+		}
+		game->map[game->player_y][game->player_x] = '0';
+		game->map[y][x] = 'P';
+		game->player_x = x;
+		game->player_y = y;
+		return (0);
+}
+
 int	handle_keypress(int keycode, t_game *game)
 {
 	int	new_x;
@@ -113,34 +141,9 @@ int	handle_keypress(int keycode, t_game *game)
 		close_window(game);
 	if (game->map[new_y][new_x] != '1')
 	{
-		game->map[game->player_y][game->player_x] = '0';
-		game->map[new_y][new_x] = 'P';
-		game->player_x = new_x;
-		game->player_y = new_y;
+		status(game, new_x, new_y);
 		render_map(game->mlx, game->window, game->map, &game->txr);
 	}
 	return (0);
 }
 
-void	init_player_position(t_game *game)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (game->map[y])
-	{
-		x = 0;
-		while (game->map[y][x])
-		{
-			if (game->map[y][x] == 'P')
-			{
-				game->player_x = x;
-				game->player_y = y;
-				return ;
-			}
-			x++;
-		}
-		y++;
-	}
-}

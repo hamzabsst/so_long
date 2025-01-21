@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:26:58 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/20 14:47:46 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/21 08:39:27 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ typedef struct s_game
 	int		player_x;
 	int		player_y;
 	t_txr	txr;
+	int		collectibles;
+	int		collected;
+	int		won;
 }	t_game;
 
 typedef struct s_point
@@ -62,6 +65,8 @@ void	render_map(void *mlx, void *window, char **map, t_txr *textures);
 //player
 void	init_player_position(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
+//collectibles
+void	init_collectibles(t_game *game);
 //cleanup
 void	free_split(char **lines);
 int		close_window(t_game *game);
