@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 10:50:07 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/20 12:52:13 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/20 14:36:53 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static t_point	find_player(char **map)
 static void	flood_fill(char **map, int x, int y)
 {
 	if (map[y][x] == '1' || map[y][x] == 'F')
-		return;
+		return ;
 	map[y][x] = 'F';
 	flood_fill(map, x + 1, y);
 	flood_fill(map, x - 1, y);
@@ -87,7 +87,7 @@ static char	**copy_map(char **map)
 	{
 		copy[i] = ft_strdup(map[i]);
 		if (!copy[i])
-			return (free_split(copy),NULL);
+			return (free_split(copy), NULL);
 		i++;
 	}
 	copy[i] = NULL;
