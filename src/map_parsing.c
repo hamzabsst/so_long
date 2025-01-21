@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 08:16:57 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/21 08:40:03 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/21 09:01:37 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void	init_map(void *mlx, t_game *game)
 	game->txr.item = NULL;
 	game->txr.exit = NULL;
 	game->txr.empty = NULL;
-	game->txr.wall = mlx_xpm_file_to_image(mlx, "txr/wall.xpm", &w, &h);
-	game->txr.plr = mlx_xpm_file_to_image(mlx, "txr/player.xpm", &w, &h);
-	game->txr.item = mlx_xpm_file_to_image(mlx, "txr/item.xpm", &w, &h);
-	game->txr.exit = mlx_xpm_file_to_image(mlx, "txr/exit.xpm", &w, &h);
-	game->txr.empty = mlx_xpm_file_to_image(mlx, "txr/empty.xpm", &w, &h);
+	game->txr.wall = mlx_xpm_file_to_image(mlx, "textures/wall.xpm", &w, &h);
+	game->txr.plr = mlx_xpm_file_to_image(mlx, "textures/player.xpm", &w, &h);
+	game->txr.item = mlx_xpm_file_to_image(mlx, "textures/item.xpm", &w, &h);
+	game->txr.exit = mlx_xpm_file_to_image(mlx, "textures/exit.xpm", &w, &h);
+	game->txr.empty = mlx_xpm_file_to_image(mlx, "textures/empty.xpm", &w, &h);
 	if (!game->txr.wall || !game->txr.plr)
 	{
 		write(2, "Error: Failed to load textures\n", 30);
@@ -97,29 +97,31 @@ void	render_map(void *mlx, void *w, char **map, t_txr *txr)
 static int	status(t_game *game, int x, int y)
 {
 	if (game->map[y][x] == 'C')
+	{
+		game->collected++;
+		ft_printf("\nCollected: %d/%d\n", game->collected, game->collectibles);
+	}
+	else if (game->map[y][x] == 'E')
+	{
+		if (game->collected == game->collectibles)
 		{
-			game->collected++;
-			ft_printf("Collected: %d/%d\n", game->collected, game->collectibles);
+			ft_printf("\nCongratulations! You won!\n");
+			close_window(game);
 		}
-		else if (game->map[y][x] == 'E')
+		else
 		{
-			if (game->collected == game->collectibles)
-			{
-				ft_printf("Congratulations! You won!\n");
-				close_window(game);
-			}
-			else
-			{
-				ft_printf("Collect all items first! (%d/%d)\n",
-					game->collected, game->collectibles);
-				return (0);
-			}
+			ft_printf("\nCollect all items first! (%d/%d)\n",
+				game->collected, game->collectibles);
+			return (0);
 		}
-		game->map[game->player_y][game->player_x] = '0';
-		game->map[y][x] = 'P';
-		game->player_x = x;
-		game->player_y = y;
-		return (0);
+	}
+	game->map[game->player_y][game->player_x] = '0';
+	game->map[y][x] = 'P';
+	game->player_x = x;
+	game->player_y = y;
+	game->moves++;
+	ft_printf("\rNumber of movements are: %d", game->moves);
+	return (0);
 }
 
 int	handle_keypress(int keycode, t_game *game)
@@ -146,4 +148,3 @@ int	handle_keypress(int keycode, t_game *game)
 	}
 	return (0);
 }
-

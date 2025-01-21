@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:26:58 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/21 08:39:27 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/21 09:33:33 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_game
 	t_txr	txr;
 	int		collectibles;
 	int		collected;
+	int		moves;
 	int		won;
 }	t_game;
 

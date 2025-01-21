@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 08:13:44 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/21 08:39:39 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/21 08:49:29 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ void	init_collectibles(t_game *game)
 	int	x;
 	int	y;
 
-	game->collected= 0;
+	game->collected = 0;
 	game->collectibles = 0;
 	game->won = 0;
+	game->moves = 0;
 	y = 0;
 	while (game->map[y])
 	{
