@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 08:38:45 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/22 11:41:04 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:24:37 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	init_variables(t_game *game)
 	game->anim_frame = 0;
 	game->anim_timer = 0;
 	game->frame_count = 0;
-	game->frames_per_update = 5000;
+	game->frames_per_update = 20000;
 }
 
 void	init_window(t_game *game)
