@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:38:54 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/20 11:01:46 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/22 09:11:19 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	has_valid_characters(char **lines, int *p, int *c, int *e)
 				(*c)++;
 			else if (lines[i][j] == 'E')
 				(*e)++;
-			else if (lines[i][j] != '1' && lines[i][j] != '0')
+			else if (lines[i][j] != '1' && lines[i][j] != '0' && lines[i][j] != 'B')
 				return (write(2, "map has invalid characters\n", 27));
 			j++;
 		}

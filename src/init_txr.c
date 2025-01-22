@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 08:13:44 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/22 09:00:21 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/22 09:13:51 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,20 @@ static void	init_txr(void *mlx, t_game *game)
 	game->txr.exit = NULL;
 	game->txr.empty = NULL;
 	game->txr.p_e = NULL;
+	game->txr.boss = NULL;
 	game->txr.wall = mlx_xpm_file_to_image(mlx, "textures/wall.xpm", &w, &h);
 	game->txr.plr = mlx_xpm_file_to_image(mlx, "textures/player.xpm", &w, &h);
 	game->txr.item = mlx_xpm_file_to_image(mlx, "textures/item.xpm", &w, &h);
 	game->txr.exit = mlx_xpm_file_to_image(mlx, "textures/exit.xpm", &w, &h);
 	game->txr.empty = mlx_xpm_file_to_image(mlx, "textures/empty.xpm", &w, &h);
 	game->txr.p_e = mlx_xpm_file_to_image(mlx, "textures/p_e.xpm", &w, &h);
+	game->txr.boss = mlx_xpm_file_to_image(mlx, "textures/boss.xpm", &w, &h);
 }
 
 void	load_txr(void *mlx, t_game *game)
 {
 	init_txr(mlx, game);
-	if (!game->txr.wall || !game->txr.plr || !game->txr.p_e)
+	if (!game->txr.wall || !game->txr.plr || !game->txr.p_e || !game->txr.boss)
 	{
 		write(2, "Error: Failed to load textures\n", 30);
 		close_window(game);

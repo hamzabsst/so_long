@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:26:58 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/22 09:05:55 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/22 09:07:25 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_txr
 	void	*exit;
 	void	*empty;
 	void	*p_e;
+	void	*boss;
 }	t_txr;
 
 typedef struct s_game

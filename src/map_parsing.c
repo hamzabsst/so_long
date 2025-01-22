@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 08:16:57 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/22 09:01:30 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/22 09:18:06 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	render_map(void *m, void *w, char **map, t_game *g)
 				mlx_put_image_to_window(m, w, g->txr.item, x * SIZE, y * SIZE);
 			else if (map[y][x] == 'E')
 				mlx_put_image_to_window(m, w, g->txr.exit, x * SIZE, y * SIZE);
+			else if (map[y][x] == 'B')
+				mlx_put_image_to_window(m, w, g->txr.boss, x * SIZE, y * SIZE);
 			else
 				mlx_put_image_to_window(m, w, g->txr.empty, x * SIZE, y * SIZE);
 			x++;
@@ -86,6 +88,11 @@ static int	status(t_game *game, int x, int y)
 	next_pos = game->map[y][x];
 	if (next_pos == 'C')
 		game->collected++;
+	else if (next_pos == 'B')
+	{
+		ft_printf("Game Over! The boss defeated you!\n");
+		close_window(game);
+	}
 	else if (next_pos == 'E')
 	{
 		if (game->collected == game->collectibles)

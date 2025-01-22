@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 08:38:45 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/22 09:03:31 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/22 09:14:52 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	close_window(t_game *game)
 		mlx_destroy_image(game->mlx, game->txr.empty);
 	if (game->txr.p_e)
 		mlx_destroy_image(game->mlx, game->txr.p_e);
+	if (game->txr.boss)
+		mlx_destroy_image(game->mlx, game->txr.boss);
 	mlx_destroy_window(game->mlx, game->window);
 	mlx_destroy_display(game->mlx);
 	free_split(game->map);
