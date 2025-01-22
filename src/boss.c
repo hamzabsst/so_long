@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:47:11 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/22 18:56:14 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/22 19:48:43 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ static void	update_boss_on_map(t_game *game, int i, int new_x, char next_tile)
 		= game->bosses[i].previous_tile;
 	if (next_tile == 'C')
 		game->bosses[i].previous_tile = 'C';
+	else if (next_tile == 'E')
+		game->bosses[i].previous_tile = 'E';
 	else
 		game->bosses[i].previous_tile = '0';
 	game->map[game->bosses[i].y][new_x] = 'B';
