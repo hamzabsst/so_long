@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 08:38:45 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/22 17:24:37 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:43:29 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ static void	init_variables(t_game *game)
 	game->anim_frame = 0;
 	game->anim_timer = 0;
 	game->frame_count = 0;
-	game->frames_per_update = 20000;
+	game->frames_per_update = 10000;
+	game->boss_direction = 1;
+	game->bosses = NULL;
 }
 
 void	init_window(t_game *game)
@@ -67,6 +69,8 @@ static void	close_txr(t_game *game)
 		mlx_destroy_image(game->mlx, game->txr.p_e);
 	if (game->txr.boss)
 		mlx_destroy_image(game->mlx, game->txr.boss);
+	if (game->bosses)
+		free(game->bosses);
 }
 
 int	close_window(t_game *game)
@@ -99,6 +103,7 @@ int	update_animation(t_game *game)
 	{
 		game->anim_frame = (game->anim_frame + 1) % 3;
 		game->frame_count = 0;
+		move_boss(game);
 		render_map(game->mlx, game->window, game->map, game);
 	}
 	display_moves(game);

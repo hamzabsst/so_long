@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:27:01 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/22 10:39:31 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:12:46 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(int ac, char **av)
 	init_window(&game);
 	load_txr(game.mlx, &game);
 	init_player_position(&game);
+	init_bosses(&game);
 	init_collectibles(&game);
 	mlx_hook(game.window, 2, 1L, handle_keypress, &game);
 	mlx_hook(game.window, 17, 0, close_window, &game);

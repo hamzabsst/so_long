@@ -6,15 +6,14 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:26:58 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/22 11:41:33 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/22 19:24:26 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-// # include "/home/hbousset/minilibx-linux/mlx.h"
-# include "../minilibx-linux/mlx.h"
+# include "/home/hbousset/includes/minilibx-linux/mlx.h"
 # include "../mylib/myLib.h"
 # define MAP_BUFFER_SIZE 1000
 # define SIZE 64
@@ -39,6 +38,14 @@ typedef struct s_txr
 	void	*boss;
 }	t_txr;
 
+typedef struct s_boss
+{
+	int		x;
+	int		y;
+	int		direction;
+	char	previous_tile;
+}	t_boss;
+
 typedef struct s_game
 {
 	void	*mlx;
@@ -61,6 +68,11 @@ typedef struct s_game
 	int		frames_per_update;
 	void	*pframes[3];
 	void	*iframes[3];
+	int		boss_x;
+	int		boss_y;
+	int		boss_direction;
+	t_boss	*bosses;
+	int		boss_count;
 }	t_game;
 
 typedef struct s_point
@@ -98,4 +110,7 @@ int		handle_keypress(int keycode, t_game *game);
 //cleanup
 void	free_split(char **lines);
 int		update_animation(t_game *game);
+void	move_boss(t_game *game);
+void	init_bosses(t_game *game);
+
 #endif
