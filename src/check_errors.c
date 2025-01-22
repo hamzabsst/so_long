@@ -6,13 +6,26 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:38:54 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/22 09:11:19 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/22 11:44:02 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
-static int	has_valid_characters(char **lines, int *p, int *c, int *e)
+static int	check_character(char c, int *p, int *c_count, int *e)
+{
+	if (c == 'P')
+		(*p)++;
+	else if (c == 'C')
+		(*c_count)++;
+	else if (c == 'E')
+		(*e)++;
+	else if (c != '1' && c != '0' && c != 'B')
+		return (write(2, "map has invalid characters\n", 27));
+	return (0);
+}
+
+int	has_valid_characters(char **lines, int *p, int *c, int *e)
 {
 	int	i;
 	int	j;
@@ -26,14 +39,8 @@ static int	has_valid_characters(char **lines, int *p, int *c, int *e)
 		j = 0;
 		while (lines[i][j])
 		{
-			if (lines[i][j] == 'P')
-				(*p)++;
-			else if (lines[i][j] == 'C')
-				(*c)++;
-			else if (lines[i][j] == 'E')
-				(*e)++;
-			else if (lines[i][j] != '1' && lines[i][j] != '0' && lines[i][j] != 'B')
-				return (write(2, "map has invalid characters\n", 27));
+			if (check_character(lines[i][j], p, c, e))
+				return (1);
 			j++;
 		}
 		i++;
@@ -41,7 +48,7 @@ static int	has_valid_characters(char **lines, int *p, int *c, int *e)
 	return (0);
 }
 
-static int	is_rectangular(char **lines)
+int	is_rectangular(char **lines)
 {
 	size_t	size;
 	int		i;
@@ -59,7 +66,7 @@ static int	is_rectangular(char **lines)
 	return (0);
 }
 
-static int	is_surronded_by_walls(char **lines)
+int	is_surronded_by_walls(char **lines)
 {
 	int		i;
 	int		width;
@@ -88,42 +95,13 @@ static int	is_surronded_by_walls(char **lines)
 	return (0);
 }
 
-int	check_map(char *map)
+int	check_sprites(int count_p, int count_e, int count_c)
 {
-	char	**lines;
-	int		count_p;
-	int		count_c;
-	int		count_e;
-
-	count_p = 0;
-	count_c = 0;
-	count_e = 0;
-	lines = ft_split(map, '\n');
-	if (!lines || !lines[0])
-		return (1);
-	if (is_rectangular(lines))
-		return (free_split(lines), 1);
-	if (has_valid_characters(lines, &count_p, &count_c, &count_e))
-		return (free_split(lines), 1);
-	if (is_surronded_by_walls(lines))
-		return (free_split(lines), 1);
-	if (count_p != 1 || count_e != 1 || count_c < 1)
-		return (free_split(lines), write(2, "map is not valid\n", 17));
-	if (is_valid_path(lines))
-		return (free_split(lines), 1);
-	free_split(lines);
+	if (count_p != 1)
+		return (write(2, "Error: no player is found\n", 26));
+	if (count_e != 1)
+		return (write(2, "Error: no exit is found\n", 24));
+	if (count_c < 1)
+		return (write(2, "Error: no collecitble is found\n", 31));
 	return (0);
-}
-
-void	free_split(char **lines)
-{
-	int	i;
-
-	i = 0;
-	while (lines[i])
-	{
-		free(lines[i]);
-		i++;
-	}
-	free(lines);
 }

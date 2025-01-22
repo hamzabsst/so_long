@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 08:13:44 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/22 09:13:51 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/22 11:24:18 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ static void	init_txr(void *mlx, t_game *game)
 	game->txr.empty = mlx_xpm_file_to_image(mlx, "textures/empty.xpm", &w, &h);
 	game->txr.p_e = mlx_xpm_file_to_image(mlx, "textures/p_e.xpm", &w, &h);
 	game->txr.boss = mlx_xpm_file_to_image(mlx, "textures/boss.xpm", &w, &h);
+	game->pframes[0] = mlx_xpm_file_to_image(mlx, "textures/plr1.xpm", &w, &h);
+	game->pframes[1] = mlx_xpm_file_to_image(mlx, "textures/plr2.xpm", &w, &h);
+	game->pframes[2] = mlx_xpm_file_to_image(mlx, "textures/plr3.xpm", &w, &h);
+	game->iframes[0] = mlx_xpm_file_to_image(mlx, "textures/egg0.xpm", &w, &h);
+	game->iframes[1] = mlx_xpm_file_to_image(mlx, "textures/egg1.xpm", &w, &h);
+	game->iframes[2] = mlx_xpm_file_to_image(mlx, "textures/item.xpm", &w, &h);
 }
 
 void	load_txr(void *mlx, t_game *game)

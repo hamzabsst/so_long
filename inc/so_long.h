@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:26:58 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/22 09:07:25 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/22 11:41:33 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,12 @@ typedef struct s_game
 	void	*black_bg;
 	int		moves;
 	int		last_was_exit;
+	int		anim_frame;
+	int		anim_timer;
+	int		frame_count;
+	int		frames_per_update;
+	void	*pframes[3];
+	void	*iframes[3];
 }	t_game;
 
 typedef struct s_point
@@ -63,8 +69,19 @@ typedef struct s_point
 	int	y;
 }	t_point;
 
+typedef struct s_render
+{
+	void	*m;
+	void	*w;
+	t_game	*g;
+}	t_render;
+
 //parsing errors
 int		check_map(char *map);
+int		is_surronded_by_walls(char **lines);
+int		check_sprites(int count_p, int count_e, int count_c);
+int		is_rectangular(char **lines);
+int		has_valid_characters(char **lines, int *p, int *c, int *e);
 int		is_valid_path(char **map);
 //window
 void	init_window(t_game *game);
@@ -80,4 +97,5 @@ void	init_collectibles(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
 //cleanup
 void	free_split(char **lines);
+int		update_animation(t_game *game);
 #endif

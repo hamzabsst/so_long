@@ -6,11 +6,38 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 08:16:57 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/22 09:18:06 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/22 11:41:22 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../inc/so_long.h"
+
+int	check_map(char *map)
+{
+	char	**lines;
+	int		count_p;
+	int		count_c;
+	int		count_e;
+
+	count_p = 0;
+	count_c = 0;
+	count_e = 0;
+	lines = ft_split(map, '\n');
+	if (!lines || !lines[0])
+		return (1);
+	if (is_rectangular(lines))
+		return (free_split(lines), 1);
+	if (has_valid_characters(lines, &count_p, &count_c, &count_e))
+		return (free_split(lines), 1);
+	if (is_surronded_by_walls(lines))
+		return (free_split(lines), 1);
+	if (check_sprites(count_p, count_e, count_c))
+		return (free_split(lines), 1);
+	if (is_valid_path(lines))
+		return (free_split(lines), 1);
+	free_split(lines);
+	return (0);
+}
 
 char	*read_map(const char *map)
 {
@@ -39,102 +66,58 @@ char	*read_map(const char *map)
 	return (buffer);
 }
 
+static void	render_tile(t_render *r, char c, int x, int y)
+{
+	if (c == '1')
+		mlx_put_image_to_window(r->m, r->w, r->g->txr.wall, x * SIZE, y * SIZE);
+	else if (c == 'P' && r->g->last_was_exit)
+		mlx_put_image_to_window(r->m, r->w, r->g->txr.p_e, x * SIZE, y * SIZE);
+	else if (c == 'P')
+		mlx_put_image_to_window(r->m, r->w,
+			r->g->pframes[r->g->anim_frame], x * SIZE, y * SIZE);
+	else if (c == 'C')
+		mlx_put_image_to_window(r->m, r->w,
+			r->g->iframes[r->g->anim_frame], x * SIZE, y * SIZE);
+	else if (c == 'E')
+		mlx_put_image_to_window(r->m, r->w, r->g->txr.exit, x * SIZE, y * SIZE);
+	else if (c == 'B')
+		mlx_put_image_to_window(r->m, r->w, r->g->txr.boss, x * SIZE, y * SIZE);
+	else
+		mlx_put_image_to_window(r->m, r->w,
+			r->g->txr.empty, x * SIZE, y * SIZE);
+}
+
 void	render_map(void *m, void *w, char **map, t_game *g)
 {
-	int	x;
-	int	y;
+	t_render	r;
+	int			x;
+	int			y;
 
+	r.m = m;
+	r.w = w;
+	r.g = g;
 	y = 0;
 	while (map[y])
 	{
 		x = 0;
 		while (map[y][x])
 		{
-			if (map[y][x] == '1')
-				mlx_put_image_to_window(m, w, g->txr.wall, x * SIZE, y * SIZE);
-			else if (map[y][x] == 'P' && g->last_was_exit)
-				mlx_put_image_to_window(m, w, g->txr.p_e, x * SIZE, y * SIZE);
-			else if (map[y][x] == 'P')
-				mlx_put_image_to_window(m, w, g->txr.plr, x * SIZE, y * SIZE);
-			else if (map[y][x] == 'C')
-				mlx_put_image_to_window(m, w, g->txr.item, x * SIZE, y * SIZE);
-			else if (map[y][x] == 'E')
-				mlx_put_image_to_window(m, w, g->txr.exit, x * SIZE, y * SIZE);
-			else if (map[y][x] == 'B')
-				mlx_put_image_to_window(m, w, g->txr.boss, x * SIZE, y * SIZE);
-			else
-				mlx_put_image_to_window(m, w, g->txr.empty, x * SIZE, y * SIZE);
+			render_tile(&r, map[y][x], x, y);
 			x++;
 		}
 		y++;
 	}
 }
 
-static void	player_on_e(t_game *game)
+void	free_split(char **lines)
 {
-	if (game->map[game->player_y][game->player_x] == 'P')
-	{
-		if (game->last_was_exit)
-			game->map[game->player_y][game->player_x] = 'E';
-		else
-			game->map[game->player_y][game->player_x] = '0';
-	}
-}
+	int	i;
 
-static int	status(t_game *game, int x, int y)
-{
-	char	next_pos;
-
-	next_pos = game->map[y][x];
-	if (next_pos == 'C')
-		game->collected++;
-	else if (next_pos == 'B')
+	i = 0;
+	while (lines[i])
 	{
-		ft_printf("Game Over! The boss defeated you!\n");
-		close_window(game);
+		free(lines[i]);
+		i++;
 	}
-	else if (next_pos == 'E')
-	{
-		if (game->collected == game->collectibles)
-		{
-			ft_printf("Congratulations! You won!\n");
-			close_window(game);
-		}
-		else
-			ft_printf("Collect all items first! (%d/%d)\n",
-				game->collected, game->collectibles);
-	}
-	player_on_e(game);
-	game->map[y][x] = 'P';
-	game->player_x = x;
-	game->player_y = y;
-	game->last_was_exit = (next_pos == 'E');
-	game->moves++;
-	return (0);
-}
-
-int	handle_keypress(int keycode, t_game *game)
-{
-	int	new_x;
-	int	new_y;
-
-	new_x = game->player_x;
-	new_y = game->player_y;
-	if (keycode == KEY_W || keycode == KEY_UP)
-		new_y--;
-	else if (keycode == KEY_S || keycode == KEY_DOWN)
-		new_y++;
-	else if (keycode == KEY_A || keycode == KEY_LEFT)
-		new_x--;
-	else if (keycode == KEY_D || keycode == KEY_RIGHT)
-		new_x++;
-	if (keycode == KEY_ESC)
-		close_window(game);
-	if (game->map[new_y][new_x] != '1')
-	{
-		status(game, new_x, new_y);
-		render_map(game->mlx, game->window, game->map, game);
-		display_moves(game);
-	}
-	return (0);
+	free(lines);
 }
