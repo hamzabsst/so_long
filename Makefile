@@ -12,6 +12,7 @@ MLX = $(MLX_DIR)/libmlx.a
 NAME = so_long
 
 SRCS =	src/main.c \
+		src/window.c \
 		src/check_errors.c \
 		src/check_errors2.c \
 		src/map_parsing.c \

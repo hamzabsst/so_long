@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:26:58 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/21 14:45:12 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/22 09:05:55 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_txr
 	void	*item;
 	void	*exit;
 	void	*empty;
+	void	*p_e;
 }	t_txr;
 
 typedef struct s_game
@@ -52,6 +53,7 @@ typedef struct s_game
 	int		won;
 	void	*black_bg;
 	int		moves;
+	int		last_was_exit;
 }	t_game;
 
 typedef struct s_point
@@ -60,21 +62,21 @@ typedef struct s_point
 	int	y;
 }	t_point;
 
-//map
-void	init_window(t_game *game);
-char	*read_map(const char *map);
+//parsing errors
 int		check_map(char *map);
 int		is_valid_path(char **map);
-void	init_map(void *mlx, t_game *game);
-void	render_map(void *mlx, void *window, char **map, t_txr *textures);
-//player
+//window
+void	init_window(t_game *game);
+void	display_moves(t_game *game);
+int		close_window(t_game *game);
+//map
+char	*read_map(const char *map);
+void	render_map(void *mlx, void *w, char **map, t_game *game);
+//txr
+void	load_txr(void *mlx, t_game *game);
 void	init_player_position(t_game *game);
-int		handle_keypress(int keycode, t_game *game);
-//collectibles
 void	init_collectibles(t_game *game);
+int		handle_keypress(int keycode, t_game *game);
 //cleanup
 void	free_split(char **lines);
-int		close_window(t_game *game);
-// In your header file
-void    display_moves(t_game *game);
 #endif
