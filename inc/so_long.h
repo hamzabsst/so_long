@@ -6,7 +6,7 @@
 /*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:26:58 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/22 19:24:26 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/01/23 07:56:40 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	init_collectibles(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
 //cleanup
 void	free_split(char **lines);
+//bonus
 int		update_animation(t_game *game);
 void	move_boss(t_game *game);
 void	init_bosses(t_game *game);
