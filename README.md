@@ -21,4 +21,4 @@ make
 
 you need MiniLibX graphics library at your home folder, dont forget to change the header file path , you should be able to do it hehe.
 
-# include "/home/(your intra)/includes/minilibx-linux/mlx.h"
+#include "/home/(your intra)/includes/minilibx-linux/mlx.h"
