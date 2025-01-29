@@ -19,6 +19,8 @@ cd so_long
 make
 ```
 
-you need MiniLibX graphics library at your home folder, dont forget to change the header file path , you should be able to do it hehe.
+You need to have the MiniLibX graphics library in your home directory inside a folder named includes, which you will need to create. Don't forget to update the header file path accordingly—you should be able to handle it!
 
-#include "/home/(your intra)/includes/minilibx-linux/mlx.h"
+```bash
+#include "/home/(your_intra_login)/includes/minilibx-linux/mlx.h"
+```
