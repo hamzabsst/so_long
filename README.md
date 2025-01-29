@@ -3,7 +3,11 @@
 A 2D maze adventure game developed as part of the 42 School curriculum. Collect all items and escape while avoiding enemies!
 
 - **Found a parsing error or memory leak? 🐞**
-```Please open a GitHub Issue or contact me directly in discord @hamzabsst . I appreciate any feedback to improve this project!```
+
+```Please open a GitHub Issue or contact me directly ,discord @hamzabsst```
+
+``` I appreciate any feedback to improve this project!```
+
 
 ## Features 🌟
 - **Dynamic Map Parsing** (.ber files)
