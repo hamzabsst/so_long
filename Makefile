@@ -6,7 +6,7 @@ LDFLAGS = -L/usr/X11/lib -lX11 -lXext
 MYLIB_DIR = mylib
 MYLIB = $(MYLIB_DIR)/myLib.a
 
-MLX_DIR = /home/hbousset/includes/minilibx-linux
+MLX_DIR = minilibx
 MLX = $(MLX_DIR)/libmlx.a
 
 NAME = so_long

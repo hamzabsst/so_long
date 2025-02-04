@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbousset < hbousset@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: hbousset <hbousset@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:26:58 by hbousset          #+#    #+#             */
-/*   Updated: 2025/01/23 07:56:40 by hbousset         ###   ########.fr       */
+/*   Updated: 2025/02/04 09:14:44 by hbousset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "/home/hbousset/includes/minilibx-linux/mlx.h"
+# include "../minilibx/mlx.h"
 # include "../mylib/myLib.h"
 # define MAP_BUFFER_SIZE 1000
 # define SIZE 64
