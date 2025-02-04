@@ -21,4 +21,7 @@ A 2D maze adventure game developed as part of the 42 School curriculum. Collect 
 git clone https://github.com/hamzabsst/so_long.git
 cd so_long
 make
+./so_long maps_bonus/medium_bonus.ber 
 ```
+
+you can try different maps, they are ranked based on difficulty , have fun :3
