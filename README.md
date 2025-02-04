@@ -18,13 +18,7 @@ A 2D maze adventure game developed as part of the 42 School curriculum. Collect 
 
 ## Installation ⚙️
 ```bash
-git clone https://github.com/yourusername/so_long.git
+git clone https://github.com/hamzabsst/so_long.git
 cd so_long
 make
-```
-
-You need to have the MiniLibX graphics library in your home directory inside a folder named includes, which you will need to create. Don't forget to update the header file path accordingly—you should be able to handle it!
-
-```bash
-#include "/home/(your_intra_login)/includes/minilibx-linux/mlx.h"
 ```
